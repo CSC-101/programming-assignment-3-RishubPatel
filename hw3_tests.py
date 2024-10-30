@@ -1,6 +1,7 @@
 import data
 import build_data
 import unittest
+import hw3
 
 
 # These two values are defined to support testing below. The
@@ -181,11 +182,76 @@ class TestCases(unittest.TestCase):
     # Part 1
     # test population_total
 
+    def test_population_total_1(self):
+        result = hw3.population_total(full_data)
+        expected = 318857056
+        self.assertEqual(expected, result)
+    
+    def test_population_total_2(self):
+        result = hw3.population_total(reduced_data)
+        expected = 55395 + 61697 + 279083 + 207590 + 2622 + 42225 + 7201
+        self.assertEqual(expected, result)
+
     # Part 2
     # test filter_by_state
 
+    def test_filter_by_state_1(self):
+        result = hw3.filter_by_state(reduced_data, "CA")
+        expected = [reduced_data[2], reduced_data[3]]
+        self.assertEqual(expected, result)
+
+    def test_filter_by_state_2(self):
+        result = hw3.filter_by_state(full_data, "Russia")
+        expected = []
+        self.assertEqual(expected, result)
+
     # Part 3
     # test population_by_education
+
+    global Demographic_1
+    Demographic_1 = data.CountyDemographics(
+    # age
+    {'Percent 65 and Older': 17.5,
+         'Percent Under 18 Years': 18.1,
+         'Percent Under 5 Years': 4.8},
+    # county
+    'San Luis Obispo County',
+    # education
+    {"Bachelor's Degree or Higher": 31.5,
+               'High School or Higher': 89.6},
+    # ethnicities
+    {'American Indian and Alaska Native Alone': 1.4,
+                 'Asian Alone': 3.8,
+                 'Black Alone': 2.2,
+                 'Hispanic or Latino': 22.0,
+                 'Native Hawaiian and Other Pacific Islander Alone': 0.2,
+                 'Two or More Races': 3.4,
+                 'White Alone': 89.0,
+                 'White Alone, not Hispanic or Latino': 69.5},
+    # income
+    {'Median Household Income': 58697,
+            'Per Capita Income': 29954,
+            'Persons Below Poverty Level': 14.3},
+    # population
+    {'2010 Population': 269637,
+                '2014 Population': 279083,
+                'Population Percent Change': 3.5,
+                'Population per Square Mile': 81.7},
+    # state
+    'CA'
+)
+
+    def test_population_by_education_1(self):
+        result = hw3.population_by_education(full_data, "Elementary School")
+        expected = 0
+        self.assertAlmostEqual(expected, result)
+    
+    def test_population_by_education_2(self):
+        result = hw3.population_by_education([Demographic_1], "Bachelor's Degree or Higher")
+        expected = 87911.145
+        print(expected)
+        self.assertAlmostEqual(expected, result)
+
     # test population_by_ethnicity
     # test population_below_poverty_level
 
