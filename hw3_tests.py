@@ -313,17 +313,67 @@ class TestCases(unittest.TestCase):
     # test education_greater_than
 
     def test_education_greater_than_1(self):
-        result = hw3.education_greater_than(reduced_data, "Bachelor's Degree or Higher")
-        #expected = hw3.
-        self.assertAlmostEqual(expected, result)
+        result = hw3.education_greater_than(reduced_data, "Bachelor's Degree or Higher", 0.90)
+        expected = []
+        self.assertEqual(expected, result)
 
-    # test education_less_than
-    # test ethnicity_greater_than
-    # test ethnicity_less_than
+    def test_education_greater_than_2(self):
+        result = hw3.education_greater_than(reduced_data, "Bachelor's Degree or Higher", 0.30)
+        expected = [reduced_data[2], reduced_data[3]]
+        self.assertEqual(expected, result)
+    
+    def test_education_less_than_1(self):
+        result = hw3.education_less_than(reduced_data, "Bachelor's Degree or Higher", 0.3)
+        expected = [reduced_data[0], reduced_data[1], reduced_data[4], reduced_data[5], reduced_data[6]]
+        self.assertEqual(expected, result)
+
+    def test_education_less_than_2(self):
+        result = hw3.education_less_than(reduced_data, "Bachelor's Degree or Higher", 0.1)
+        expected = []
+        self.assertEqual(expected, result)
+
+    def test_ethnicity_greater_than_1(self):
+        result = hw3.ethnicity_greater_than(reduced_data, "Two or More Races", 0.0189)
+        expected = reduced_data[1:]
+        self.assertEqual(expected, result)
+
+    def test_ethnicity_greater_than_2(self):
+        result = hw3.ethnicity_greater_than(reduced_data, "Aookl", 0.0189)
+        expected = []
+        self.assertEqual(expected, result)
+    
+    def test_ethnicity_less_than_1(self):
+        result = hw3.ethnicity_less_than(reduced_data, "Aookl", 0.0189)
+        expected = reduced_data
+        self.assertEqual(expected, result)
+    
+    def test_ethnicity_less_than_2(self):
+        result = hw3.ethnicity_less_than(reduced_data, "Two or More Races", 0.0189)
+        expected = [reduced_data[0]]
+        self.assertEqual(expected, result)
+
+    def test_below_poverty_level_greater_than_1(self):
+        result = hw3.below_poverty_level_greater_than(reduced_data, 0.2)
+        expected = [reduced_data[1]]
+        self.assertEqual(expected, result)
+
+    def test_below_poverty_level_greater_than_2(self):
+        result = hw3.below_poverty_level_greater_than(reduced_data, 0.1)
+        expected = reduced_data
+        self.assertEqual(expected, result)
+
+    def test_below_poverty_level_less_than_1(self):
+        result = hw3.below_poverty_level_less_than(reduced_data, 0.1)
+        expected = []
+        self.assertEqual(expected, result)
+
+    def test_below_poverty_level_less_than_2(self):
+        result = hw3.below_poverty_level_less_than(reduced_data, 0.2)
+        expected = [x for x in reduced_data if x != reduced_data[1]]
+        self.assertEqual(expected, result)
+
     # test below_poverty_level_greater_than
     # test below_poverty_level_less_than
-
-
 
 if __name__ == '__main__':
     unittest.main()
