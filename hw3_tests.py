@@ -309,7 +309,14 @@ class TestCases(unittest.TestCase):
         self.assertAlmostEqual(expected, result)
 
     # Part 5
+
     # test education_greater_than
+
+    def test_education_greater_than_1(self):
+        result = hw3.education_greater_than(reduced_data, "Bachelor's Degree or Higher")
+        #expected = hw3.
+        self.assertAlmostEqual(expected, result)
+
     # test education_less_than
     # test ethnicity_greater_than
     # test ethnicity_less_than

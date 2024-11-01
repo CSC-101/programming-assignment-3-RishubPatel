@@ -37,3 +37,22 @@ def percent_below_poverty_level(demographics: list[data.CountyDemographics]): #r
     return population_below_poverty_level(demographics) / population_total(demographics)
 
 #Part 5
+
+def education_greater_than(demographics: list[data.CountyDemographics], education_level: str, threshold: float) -> list[data.CountyDemographics]: #returns a list of all counties above the threshold education level
+    return [county for county in demographics if percent_by_education([county], education_level) > threshold]
+
+def education_less_than(demographics: list[data.CountyDemographics], education_level: str, threshold: float) -> list[data.CountyDemographics]: #returns a list of all counties below the threshold education level
+    return [county for county in demographics if percent_by_education([county], education_level) < threshold]
+
+def ethnicity_greater_than(demographics: list[data.CountyDemographics], ethnicity: str, threshold: float) -> list[data.CountyDemographics]: #returns a list of all counties above the threshold ethnicity level
+    return [county for county in demographics if percent_by_ethnicity([county], ethnicity) > threshold]
+
+def ethnicity_less_than(demographics: list[data.CountyDemographics], ethnicity: str, threshold: float) -> list[data.CountyDemographics]: #returns a list of all counties below the threshold ethnicity level
+    return [county for county in demographics if percent_by_ethnicity([county], ethnicity) < threshold]
+
+def below_poverty_level_greater_than(demographics: list[data.CountyDemographics], threshold: float) -> list[data.CountyDemographics]: #returns a list of all counties above the threshold poverty level
+    return [county for county in demographics if percent_below_poverty_level([county]) > threshold]
+
+def below_poverty_level_less_than(demographics: list[data.CountyDemographics], threshold: float) -> list[data.CountyDemographics]: #returns a list of all counties below the threshold poverty level
+    return [county for county in demographics if percent_below_poverty_level([county]) < threshold]
+
