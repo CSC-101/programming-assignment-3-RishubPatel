@@ -19,9 +19,21 @@ def population_by_education(demographics: list[data.CountyDemographics], educati
         return 0
     return sum([demographic.education[education_level]/100 * demographic.population["2014 Population"] for demographic in demographics])
 
-def population_by_ethnicity(demographics: list[data.CountyDemographics], str) -> float:
-    pass
+def population_by_ethnicity(demographics: list[data.CountyDemographics], ethnicity: str) -> float:
+    return sum(0 if ethnicity not in demographic.ethnicities else demographic.ethnicities[ethnicity]/100 * demographic.population["2014 Population"] for demographic in demographics)
+
+def population_below_poverty_level(demographics: list[data.CountyDemographics]) -> float: #returns the 2014 sub-population of people below the poverty level across the given counties
+    return sum(0 if "Persons Below Poverty Level" not in demographic.income else (demographic.income["Persons Below Poverty Level"]/100) * demographic.population["2014 Population"] for demographic in demographics)
 
 #Part 4
+
+def percent_by_education(demographics: list[data.CountyDemographics], education_level: str) -> float: #returns the percent of the 2014 population of a given education level
+    return population_by_education(demographics, education_level) / population_total(demographics)
+
+def percent_by_ethnicity(demographics: list[data.CountyDemographics], ethnicity: str) -> float: #returns percent of 2014 pop that's a given ethnicity across given counties
+    return population_by_ethnicity(demographics, ethnicity) / population_total(demographics)
+
+def percent_below_poverty_level(demographics: list[data.CountyDemographics]): #returns percent of 2014 pop below poverty level across given counties
+    return population_below_poverty_level(demographics) / population_total(demographics)
 
 #Part 5

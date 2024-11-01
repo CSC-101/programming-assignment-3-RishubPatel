@@ -206,7 +206,6 @@ class TestCases(unittest.TestCase):
         self.assertEqual(expected, result)
 
     # Part 3
-    # test population_by_education
 
     global Demographic_1
     Demographic_1 = data.CountyDemographics(
@@ -241,6 +240,7 @@ class TestCases(unittest.TestCase):
     'CA'
 )
 
+
     def test_population_by_education_1(self):
         result = hw3.population_by_education(full_data, "Elementary School")
         expected = 0
@@ -249,16 +249,64 @@ class TestCases(unittest.TestCase):
     def test_population_by_education_2(self):
         result = hw3.population_by_education([Demographic_1], "Bachelor's Degree or Higher")
         expected = 87911.145
-        print(expected)
         self.assertAlmostEqual(expected, result)
 
-    # test population_by_ethnicity
-    # test population_below_poverty_level
+
+    def test_population_by_ethnicity_1(self):
+        result = hw3.population_by_ethnicity(full_data, "Elementary School")
+        expected = 0
+        self.assertAlmostEqual(expected, result)
+    
+    def test_population_by_ethnicity_2(self):
+        result = hw3.population_by_ethnicity(reduced_data[0:3], 'American Indian and Alaska Native Alone')
+        expected = (55395 * 0.5/100) + (61697 * 2.5/100) + (279083* 1.4/100)
+        self.assertAlmostEqual(expected, result)
+        
+    def test_population_below_poverty_level_1(self):
+        result = hw3.population_below_poverty_level(reduced_data[0:3])
+        expected = (55395 * 12.1/100) + (61697 * 20.2/100) + (279083* 14.3/100)
+        self.assertAlmostEqual(expected, result)
+    
+    def test_population_below_poverty_level_2(self):
+        result = hw3.population_below_poverty_level(reduced_data[0:2])
+        expected = (55395 * 12.1/100) + (61697 * 20.2/100)
+        self.assertAlmostEqual(expected, result)
 
     # Part 4
-    # test percent_by_education
+
+    def test_percent_by_education_1(self):
+        result = hw3.percent_by_education([Demographic_1], "Bachelor's Degree or Lower")
+        expected = 0
+        self.assertAlmostEqual(expected, result)
+    
+    def test_percent_by_education_2(self):
+        result = hw3.percent_by_education(reduced_data, "Bachelor's Degree or Higher")
+        expected = hw3.population_by_education(reduced_data, "Bachelor's Degree or Higher")/hw3.population_total(reduced_data)
+        self.assertAlmostEqual(expected, result)
+    
     # test percent_by_ethnicity
+
+    def test_percent_by_ethnicity_1(self):
+        result = hw3.percent_by_ethnicity(full_data, "Zero or More Races")
+        expected = 0
+        self.assertAlmostEqual(expected, result)
+    
+    def test_percent_by_ethnicity_2(self):
+        result = hw3.percent_by_ethnicity(reduced_data, "Two or More Races")
+        expected = hw3.population_by_ethnicity(reduced_data, "Two or More Races")/hw3.population_total(reduced_data)
+        self.assertAlmostEqual(expected, result)
+
     # test percent_below_poverty_level
+
+    def test_percent_below_poverty_level_1(self):
+        result = hw3.percent_below_poverty_level(full_data)
+        expected = hw3.population_below_poverty_level(full_data) / hw3.population_total(full_data)
+        self.assertAlmostEqual(expected, result)
+    
+    def test_percent_below_poverty_level_2(self):
+        result = hw3.percent_below_poverty_level(reduced_data)
+        expected = hw3.population_below_poverty_level(reduced_data) / hw3.population_total(reduced_data)
+        self.assertAlmostEqual(expected, result)
 
     # Part 5
     # test education_greater_than
